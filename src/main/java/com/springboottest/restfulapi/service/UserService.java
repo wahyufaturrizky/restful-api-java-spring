@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboottest.restfulapi.entity.User;
 import com.springboottest.restfulapi.model.RegisterUserRequest;
+import com.springboottest.restfulapi.model.UserResponse;
 import com.springboottest.restfulapi.repository.UserRepository;
 import com.springboottest.restfulapi.security.BCrypt;
 
@@ -28,6 +29,10 @@ public class UserService {
     user.setName(request.getName());
 
     userRepository.save(user);
+  }
+
+  public UserResponse get(User user) {
+    return UserResponse.builder().username(user.getUsername()).name(user.getName()).build();
   }
   
 }
