@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springboottest.exception.ApiException;
 import com.springboottest.restfulapi.entity.User;
+import com.springboottest.restfulapi.exception.ApiException;
 import com.springboottest.restfulapi.model.RegisterUserRequest;
 import com.springboottest.restfulapi.repository.UserRepository;
-import com.springboottest.security.BCrypt;
+import com.springboottest.restfulapi.security.BCrypt;
 
 import jakarta.validation.ConstraintViolation;
 

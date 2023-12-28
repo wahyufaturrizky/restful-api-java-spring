@@ -1,4 +1,4 @@
-package com.springboottest.exception;
+package com.springboottest.restfulapi.exception;
 
 public class ApiException extends RuntimeException {
 
