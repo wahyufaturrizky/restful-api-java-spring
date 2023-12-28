@@ -1,20 +1,13 @@
 package com.springboottest.restfulapi.service;
 
-import java.util.Set;
-
-import javax.xml.validation.Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboottest.restfulapi.entity.User;
-import com.springboottest.restfulapi.exception.ApiException;
 import com.springboottest.restfulapi.model.RegisterUserRequest;
 import com.springboottest.restfulapi.repository.UserRepository;
 import com.springboottest.restfulapi.security.BCrypt;
-
-import jakarta.validation.ConstraintViolation;
 
 @Service
 public class UserService {
@@ -23,15 +16,11 @@ public class UserService {
   private UserRepository userRepository;
 
   @Autowired
-  private Validator userValidator;
+  private ValidationService validationService;
 
   @Transactional
   public void register(RegisterUserRequest request) {
-    Set<ConstraintViolation<RegisterUserRequest>> constraintViolations = userValidator.validate(request);
-
-    if (constraintViolations.size() != 0) {
-      throw new ApiException("Username already registered");
-    }
+    validationService.validate(request);
 
     User user = new User();
     user.setUsername(request.getUsername());
