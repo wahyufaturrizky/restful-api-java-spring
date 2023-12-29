@@ -11,6 +11,7 @@ import com.springboottest.restfulapi.entity.Contacts;
 import com.springboottest.restfulapi.entity.User;
 import com.springboottest.restfulapi.model.CreateAddressRequest;
 import com.springboottest.restfulapi.model.CreateAddressResponse;
+import com.springboottest.restfulapi.model.UpdateAddressRequest;
 import com.springboottest.restfulapi.repository.AddressRepository;
 import com.springboottest.restfulapi.repository.ContactRepository;
 import org.springframework.web.server.ResponseStatusException;
@@ -63,6 +64,24 @@ public class AddressService {
     Contacts contacts = contactRepository.findFirstByUserAndId(user, addressid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
     Address address = addressRepository.findFirstByContactAndId(contacts, contactId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+
+    return toAddressResponse(address);
+  }
+
+  @Transactional
+  public CreateAddressResponse update(User user, UpdateAddressRequest request) {
+    validationService.validate(request);
+
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, addressid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+
+    Address address = addressRepository.findFirstByContactAndId(contacts, contactId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+
+    address.setStreet(request.getStreet());
+    address.setCity(request.getCity());
+    address.setProvince(request.getProvince());
+    address.setCountry(request.getCountry());
+    address.setPostalCode(request.getPostalCode());
+    addressRepository.save(address);
 
     return toAddressResponse(address);
   }
