@@ -66,5 +66,13 @@ public class ContactService {
 
     return toContactResponse(contacts);
   }
+
+  @Transactional
+  public void delete(User user, String id) {
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+
+    contactRepository.delete(contacts);
+
+  }
   
 }

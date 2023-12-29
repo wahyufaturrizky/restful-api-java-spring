@@ -2,6 +2,7 @@ package com.springboottest.restfulapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,14 @@ public class ContactController {
     ContactResponse contactResponse = contactService.update(user, request);
 
     return Response.<ContactResponse>builder().data(contactResponse).build();
+
+  }
+
+  @DeleteMapping(path = "/api/contacts/{contactId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Response<String> delete(User user, @PathVariable("contactId") String id) {
+    contactService.delete(user, id);
+
+    return Response.<String>builder().data("OK").build();
 
   }
   
