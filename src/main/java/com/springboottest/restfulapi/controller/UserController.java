@@ -29,6 +29,7 @@ public class UserController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public Response<String> register(@RequestBody RegisterUserRequest request) {
+    
     userService.register(request);
     return Response.<String>builder().data("OK").build();
   }

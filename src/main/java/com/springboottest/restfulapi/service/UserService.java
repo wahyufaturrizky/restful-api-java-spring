@@ -33,7 +33,7 @@ public class UserService {
 
     userRepository.save(user);
   }
-
+  
   public UserResponse get(User user) {
     return UserResponse.builder().username(user.getUsername()).name(user.getName()).build();
   }
