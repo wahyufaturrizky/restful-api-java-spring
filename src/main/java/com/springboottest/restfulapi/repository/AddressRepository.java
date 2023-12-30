@@ -1,5 +1,6 @@
 package com.springboottest.restfulapi.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,7 @@ import com.springboottest.restfulapi.entity.Contacts;
 public interface AddressRepository extends JpaRepository<Address, String> {
 
   Optional<Address> findFirstByContactAndId(Contacts contacts, String contactId);
+
+  List<Address> findAllByContact(Contacts contacts);
   
 }

@@ -1,5 +1,7 @@
 package com.springboottest.restfulapi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,6 +53,14 @@ public class AddressController {
     addressService.remove(user, id, addressId);
 
     return Response.<String>builder().data("OK").build();
+  }
+
+  @GetMapping(path = "/api/contacts/{contactId}/address", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Response<List<CreateAddressResponse>> list(User user, @PathVariable("contactId") String contactId) {
+    List<CreateAddressResponse> addressResponses = addressService.list(user, contactId);
+
+    return Response.<List<CreateAddressResponse>>builder().data(addressResponses).build();
+    
   }
   
 }

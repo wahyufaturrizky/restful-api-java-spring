@@ -1,10 +1,12 @@
 package com.springboottest.restfulapi.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.springboottest.restfulapi.entity.Address;
 import com.springboottest.restfulapi.entity.Contacts;
@@ -14,8 +16,6 @@ import com.springboottest.restfulapi.model.CreateAddressResponse;
 import com.springboottest.restfulapi.model.UpdateAddressRequest;
 import com.springboottest.restfulapi.repository.AddressRepository;
 import com.springboottest.restfulapi.repository.ContactRepository;
-import org.springframework.web.server.ResponseStatusException;
-
 
 import jakarta.transaction.Transactional;
 
@@ -95,6 +95,15 @@ public class AddressService {
 
     addressRepository.delete(address);
 
+  }
+
+  @Transactional
+  public List<CreateAddressResponse> list(User user, String contactId) {
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, contactId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+
+    List<Address> addresses = addressRepository.findAllByContact(contacts);
+
+    return addresses.stream().map(this::toAddressResponse).toList();
   }
   
 }
