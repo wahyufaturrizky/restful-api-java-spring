@@ -25,6 +25,8 @@ public class Contacts {
 
   @Id
   private String id;
+
+  @Column(insertable = false, updatable = false)
   private String username;
 
   @Column(name = "first_name")
@@ -40,7 +42,7 @@ public class Contacts {
   @JoinColumn(name = "username", referencedColumnName = "username")
   private User user;
 
-  @OneToMany(mappedBy = "contacts")
+  @OneToMany(mappedBy = "contact")
   private List<Address> address;
   
 }

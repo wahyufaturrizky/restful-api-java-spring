@@ -39,7 +39,7 @@ public class AddressController {
     return Response.<CreateAddressResponse>builder().data(createAddressResponse).build();
   }
 
-  @PutMapping(path = "/api/contacts/{contactId}/address/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE))
+  @PutMapping(path = "/api/contacts/{contactId}/address/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public Response<CreateAddressResponse> update(User user, @RequestBody UpdateAddressRequest request, @PathVariable("contactId") String id, @PathVariable("addressId") String addressId) {
     request.setContactId(id);
     request.setAddressId(addressId);

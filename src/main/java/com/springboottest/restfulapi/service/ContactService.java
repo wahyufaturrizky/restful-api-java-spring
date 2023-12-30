@@ -79,7 +79,7 @@ public class ContactService {
 
   @Transactional
   public void delete(User user, String id) {
-    Contacts contacts = contactRepository.findFirstByUserAndId(user, id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
     contactRepository.delete(contacts);
 
@@ -93,16 +93,16 @@ public class ContactService {
       if (Objects.nonNull(request.getName())) {
         predicates.add(builder.or(
           builder.like(root.get("firstName"), "%" + request.getName() + "%"),
-          builder.like(root.get("lastName"), "%" + request.getName() + "%"),
-        ))
+          builder.like(root.get("lastName"), "%" + request.getName() + "%")
+        ));
       }
 
       if (Objects.nonNull(request.getEmail())) {
-        predicates.add(builder.like(root.get("email"), "%" + request.getEmail() + "%"))
+        predicates.add(builder.like(root.get("email"), "%" + request.getEmail() + "%"));
       }
 
       if (Objects.nonNull(request.getPhone())) {
-        predicates.add(builder.like(root.get("phone"), "%" + request.getPhone() + "%"))
+        predicates.add(builder.like(root.get("phone"), "%" + request.getPhone() + "%"));
       }
 
       return query.where(predicates.toArray(new Predicate[]{})).getRestriction();

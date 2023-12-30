@@ -17,7 +17,7 @@ import com.springboottest.restfulapi.model.UpdateAddressRequest;
 import com.springboottest.restfulapi.repository.AddressRepository;
 import com.springboottest.restfulapi.repository.ContactRepository;
 
-org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AddressService {
@@ -72,9 +72,9 @@ public class AddressService {
   public CreateAddressResponse update(User user, UpdateAddressRequest request) {
     validationService.validate(request);
 
-    Contacts contacts = contactRepository.findFirstByUserAndId(user, addressid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, request.getAddressId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
-    Address address = addressRepository.findFirstByContactAndId(contacts, contactId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+    Address address = addressRepository.findFirstByContactAndId(contacts, request.getContactId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
 
     address.setStreet(request.getStreet());
     address.setCity(request.getCity());
@@ -89,7 +89,7 @@ public class AddressService {
   @Transactional
   public void remove(User user, String contactId, String addressId) {
 
-    Contacts contacts = contactRepository.findFirstByUserAndId(user, addressid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+    Contacts contacts = contactRepository.findFirstByUserAndId(user, addressId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
     Address address = addressRepository.findFirstByContactAndId(contacts, contactId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
 
