@@ -13,7 +13,7 @@ import com.springboottest.restfulapi.model.TokenResponse;
 import com.springboottest.restfulapi.repository.UserRepository;
 import com.springboottest.restfulapi.security.BCrypt;
 
-import jakarta.transaction.Transactional;
+org.springframework.transaction.annotation.Transactional
 
 @Service
 public class AuthService {

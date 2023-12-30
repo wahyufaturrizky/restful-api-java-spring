@@ -17,7 +17,7 @@ import com.springboottest.restfulapi.model.UpdateAddressRequest;
 import com.springboottest.restfulapi.repository.AddressRepository;
 import com.springboottest.restfulapi.repository.ContactRepository;
 
-import jakarta.transaction.Transactional;
+org.springframework.transaction.annotation.Transactional
 
 @Service
 public class AddressService {
